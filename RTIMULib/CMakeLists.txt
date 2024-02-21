@@ -35,66 +35,37 @@ ENDIF(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 ########################################################################
 # Project setup
 ########################################################################
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.22)
 PROJECT(RTIMULib CXX)
 ENABLE_TESTING()
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-
-INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/../RTIMULibVersion.txt)
-
-SET(LIBRTIMU_SRCS
-    RTFusion.cpp
-    RTFusionRTQF.cpp
-    RTMath.cpp
-    RTFusionKalman4.cpp
-    RTIMUAccelCal.cpp
-    RTIMUHal.cpp
-    RTIMUMagCal.cpp
-    RTIMUSettings.cpp
-    IMUDrivers/RTIMU.cpp
-    IMUDrivers/RTIMUGD20M303DLHC.cpp
-    IMUDrivers/RTIMUGD20HM303DLHC.cpp
-    IMUDrivers/RTIMUGD20HM303D.cpp
-    IMUDrivers/RTIMULSM9DS0.cpp
-    IMUDrivers/RTIMULSM9DS1.cpp
-    IMUDrivers/RTIMUMPU9150.cpp
-    IMUDrivers/RTIMUMPU9250.cpp
-    IMUDrivers/RTIMUMPU9255.cpp
-    IMUDrivers/RTIMUBMX055.cpp
-    IMUDrivers/RTIMUBNO055.cpp
-    IMUDrivers/RTIMUNull.cpp
-    IMUDrivers/RTPressure.cpp
-    IMUDrivers/RTPressureBMP180.cpp
-    IMUDrivers/RTPressureLPS25H.cpp
-    IMUDrivers/RTPressureMS5611.cpp
-    IMUDrivers/RTPressureMS5637.cpp
-    IMUDrivers/RTHumidity.cpp
-    IMUDrivers/RTHumidityHTS221.cpp
-    IMUDrivers/RTHumidityHTU21D.cpp
-)
-
-IF(WIN32 AND QT5)
-    FIND_PACKAGE(Qt5Widgets)
-    FIND_PACKAGE(Qt5Gui)
-    qt5_wrap_ui(UI_HEADERS RTIMULibDemo.ui)
-    ADD_LIBRARY(RTIMULib STATIC ${LIBRTIMU_SRCS})
-    qt5_use_modules(RTIMULib Widgets Gui)
-ENDIF(WIN32 AND QT5)
-
-IF(WIN32 AND (NOT QT5))
-    FIND_PACKAGE(Qt4 REQUIRED)
-    INCLUDE(${QT_USE_FILE})
-    ADD_DEFINITIONS(${QT_DEFINITIONS})
-    ADD_LIBRARY(RTIMULib STATIC ${LIBRTIMU_SRCS})
-    TARGET_LINK_LIBRARIES(RTIMULib ${QT_LIBRARIES})
-ENDIF(WIN32 AND (NOT QT5))
-
-IF(UNIX)
-    ADD_LIBRARY(RTIMULib SHARED ${LIBRTIMU_SRCS})
-    SET_PROPERTY(TARGET RTIMULib PROPERTY VERSION ${RTIMULIB_VERSION})
-    SET_PROPERTY(TARGET RTIMULib PROPERTY SOVERSION ${RTIMULIB_VERSION_MAJOR})
-    INSTALL(TARGETS RTIMULib DESTINATION lib)
-    INSTALL(DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.h")
-ENDIF(UNIX)
-
+add_library(RTIMULib
+    src/IMUDrivers/RTHumidity.cpp
+    src/IMUDrivers/RTHumidityHTU21D.cpp
+    src/IMUDrivers/RTIMUBNO055.cpp
+    src/IMUDrivers/RTIMUGD20HM303D.cpp
+    src/IMUDrivers/RTIMUGD20M303DLHC.cpp
+    src/IMUDrivers/RTIMULSM9DS1.cpp
+    src/IMUDrivers/RTIMUMPU9250.cpp
+    src/IMUDrivers/RTIMUNull.cpp
+    src/IMUDrivers/RTPressure.cpp
+    src/IMUDrivers/RTPressureMS5611.cpp
+    src/IMUDrivers/RTHumidityHTS221.cpp
+    src/IMUDrivers/RTIMUBMX055.cpp
+    src/IMUDrivers/RTIMU.cpp
+    src/IMUDrivers/RTIMUGD20HM303DLHC.cpp
+    src/IMUDrivers/RTIMULSM9DS0.cpp
+    src/IMUDrivers/RTIMUMPU9150.cpp
+    src/IMUDrivers/RTIMUMPU9255.cpp
+    src/IMUDrivers/RTPressureBMP180.cpp
+    src/IMUDrivers/RTPressureLPS25H.cpp
+    src/IMUDrivers/RTPressureMS5637.cpp
+    src/RTFusion.cpp
+    src/RTFusionKalman4.cpp
+    src/RTFusionRTQF.cpp
+    src/RTIMUAccelCal.cpp
+    src/RTIMUHal.cpp
+    src/RTIMUMagCal.cpp
+    src/RTIMUSettings.cpp
+    src/RTMath.cpp)
+target_include_directories(RTIMULib PUBLIC include)
