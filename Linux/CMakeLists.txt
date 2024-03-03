@@ -38,6 +38,8 @@ INCLUDE(FeatureSummary)
 ########################################################################
 # Project setup
 ########################################################################
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9)
+PROJECT(RTIMULib CXX)
 ENABLE_TESTING()
 
 OPTION(BUILD_GL "Build RTIMULibGL" ON)
@@ -56,6 +58,10 @@ ADD_FEATURE_INFO(RTIMULibDrive11 BUILD_DRIVE11 "App that shows to use  pressure/
 ADD_FEATURE_INFO(RTIMULibCal BUILD_CAL "Command line calibration tool for the magnetometers and accelerometers.")
 ADD_FEATURE_INFO(RTIMULibDemo BUILD_DEMO "GUI app that displays the fused IMU data in real-time")
 ADD_FEATURE_INFO(RTIMULibDemoGL BUILD_DEMOGL "RTIMULibDemo with OpenGL visualization")
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../RTIMULib)
+
+ADD_SUBDIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/../RTIMULib RTIMULib)
 
 IF(BUILD_GL)
     INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/RTIMULibGL)
@@ -88,6 +94,6 @@ IF(BUILD_DEMOGL)
     ADD_SUBDIRECTORY(RTIMULibDemoGL)
 ENDIF(BUILD_DEMOGL)
 
-feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
+PRINT_ENABLED_FEATURES()
 
 MESSAGE(STATUS "Using install prefix: ${CMAKE_INSTALL_PREFIX}")

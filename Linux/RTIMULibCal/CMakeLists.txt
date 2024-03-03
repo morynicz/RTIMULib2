@@ -27,7 +27,11 @@
 # Copyright 2014 Ettus Research LLC
 #
 
-add_executable(RTIMULibCal RTIMULibCal.cpp)
-target_link_libraries(RTIMULibCal PUBLIC RTIMULib)
 
-install(TARGETS RTIMULibCal DESTINATION bin)
+SET(CAL_SRCS
+    RTIMULibCal.cpp)
+
+ADD_EXECUTABLE(RTIMULibCal ${CAL_SRCS})
+TARGET_LINK_LIBRARIES(RTIMULibCal RTIMULib)
+
+INSTALL(TARGETS RTIMULibCal DESTINATION bin)
