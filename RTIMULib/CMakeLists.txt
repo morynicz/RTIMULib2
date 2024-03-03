@@ -35,8 +35,6 @@ ENDIF(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 ########################################################################
 # Project setup
 ########################################################################
-cmake_minimum_required(VERSION 3.22)
-PROJECT(RTIMULib CXX)
 ENABLE_TESTING()
 
 add_library(RTIMULib

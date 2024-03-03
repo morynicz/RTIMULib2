@@ -22,9 +22,9 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-#include "RTIMULib.h"
-#include "RTIMUMagCal.h"
-#include "RTIMUAccelCal.h"
+#include "RTIMULib/RTIMULib.h"
+#include "RTIMULib/RTIMUMagCal.h"
+#include "RTIMULib/RTIMUAccelCal.h"
 
 #include <termios.h>
 #include <unistd.h>
